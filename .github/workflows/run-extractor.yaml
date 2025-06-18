@@ -42,13 +42,12 @@ jobs:
           API_MANAGEMENT_SERVICE_OUTPUT_FOLDER_PATH: ${{ GITHUB.WORKSPACE }}/apimartifacts  # change this to the artifacts folder
           API_SPECIFICATION_FORMAT: ${{ github.event.inputs.API_SPECIFICATION_FORMAT }} 
         run: |
-          echo "📦 Téléchargement de l'extracteur..."
-          curl -L -o extractor.zip https://aka.ms/apimextractor-linux
-          unzip extractor.zip -d extractor
-          chmod +x extractor/Extractor
+          echo "📥 Téléchargement du binaire Extractor..."
+          curl -L -o Extractor https://aka.ms/apimextractor-linux
+          chmod +x Extractor
 
-          echo "🚀 Exécution de l'extracteur..."
-          ./extractor/Extractor
+          echo "🚀 Exécution du binaire Extractor..."
+          ./Extractor
         shell: bash
       
       - name: Run extractor with Config Yaml
