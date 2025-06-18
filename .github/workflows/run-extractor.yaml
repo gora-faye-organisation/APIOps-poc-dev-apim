@@ -42,50 +42,14 @@ jobs:
           API_MANAGEMENT_SERVICE_OUTPUT_FOLDER_PATH: ${{ GITHUB.WORKSPACE }}/apimartifacts  # change this to the artifacts folder
           API_SPECIFICATION_FORMAT: ${{ github.event.inputs.API_SPECIFICATION_FORMAT }} 
         run: |
-          Set-StrictMode -Version Latest
-          $ErrorActionPreference = "Stop"
-          $VerbosePreference = "Continue"
-          $InformationPreference = "Continue"
+          echo "📦 Téléchargement de l'extracteur..."
+          curl -L -o extractor.zip https://aka.ms/apimextractor-linux
+          unzip extractor.zip -d extractor
+          chmod +x extractor/Extractor
 
-          Write-Information "Setting name variables..."
-          $releaseFileName = "extractor-linux-x64.zip"
-          $executableFileName = "extractor"
-
-          if ("${{ runner.os }}" -like "*win*") {
-            $releaseFileName = "extractor-win-x64.zip"
-            $executableFileName = "extractor.exe"
-          }
-          elseif ("${{ runner.os }}" -like "*mac*" -and "${{ runner.arch }}" -like "*arm*") {
-            $releaseFileName = "extractor-osx-arm64.zip"
-          }
-          elseif ("${{ runner.os }}" -like "*mac*" -and "${{ runner.arch }}" -like "*x86_64*") {
-            $releaseFileName = "extractor-osx-x64.zip"
-          }
-
-          $downloadFilePath = Join-Path $env:RUNNER_TEMP "extractor.zip"
-          $uri = "https://aka.ms/apimextractor-linux"
-
-          Write-Information "Downloading release from $uri"
-          Invoke-WebRequest -Uri $uri -OutFile $downloadFilePath
-
-          Write-Information "Extracting release..."
-          $executableFolderPath = Join-Path "${{ runner.temp }}" "extractor"
-          Expand-Archive -Path "$downloadFilePath" -DestinationPath "$executableFolderPath"
-          $executableFilePath = Join-Path "$executableFolderPath" $executableFileName
-
-          Write-Information "Setting file permissions..."
-          if ("${{ runner.os }}" -like "*linux*")
-          {
-            & chmod +x "$executableFilePath"
-            if ($LASTEXITCODE -ne 0) { throw "Setting file permissions failed."}
-          }
-
-          Write-Information "Running extractor..."
-          & "$executableFilePath"              
-          if ($LASTEXITCODE -ne 0) { throw "Running extractor failed."}
-
-          Write-Information "Execution complete."
-        shell: pwsh
+          echo "🚀 Exécution de l'extracteur..."
+          ./extractor/Extractor
+        shell: bash
       
       - name: Run extractor with Config Yaml
         if: ${{ github.event.inputs.CONFIGURATION_YAML_PATH != 'Extract All APIs' }}
