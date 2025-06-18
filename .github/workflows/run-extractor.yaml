@@ -155,9 +155,7 @@ jobs:
     needs: extract
     runs-on: [ubuntu-latest]
     permissions:
-      contents: write
-      pull-requests: write
-      issues: write
+      contents: none
     steps:
       - uses: actions/checkout@v4
           
