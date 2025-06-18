@@ -62,9 +62,11 @@ jobs:
             $releaseFileName = "extractor-osx-x64.zip"
           }
 
-          Write-Information "Downloading release..."
-          $uri = "https://github.com/Azure/apiops/releases/download/${{ env.apiops_release_version }}/$releaseFileName"
-          $downloadFilePath = Join-Path "${{ runner.temp }}" $releaseFileName
+          $apiopsReleaseVersion = $env:apiops_release_version
+          $uri = "https://github.com/Azure/apiops/releases/download/$apiopsReleaseVersion/$releaseFileName"
+          $downloadFilePath = Join-Path $env:RUNNER_TEMP $releaseFileName
+
+          Write-Information "Downloading release from $uri"
           Invoke-WebRequest -Uri "$uri" -OutFile "$downloadFilePath"
 
           Write-Information "Extracting release..."
