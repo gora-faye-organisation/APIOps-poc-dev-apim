@@ -1,8 +1,0 @@
-{
-  "properties": {
-    "scope": "/subscriptions/da2e245c-1da4-409b-9b54-81016ca9ae8f/resourceGroups/dev-apim-resource-group/providers/Microsoft.ApiManagement/service/dev-apim-apim/products/all_api_product",
-    "allowTracing": false,
-    "ownerId": "/subscriptions/da2e245c-1da4-409b-9b54-81016ca9ae8f/resourceGroups/dev-apim-resource-group/providers/Microsoft.ApiManagement/service/dev-apim-apim/users/1",
-    "state": "active"
-  }
-}
