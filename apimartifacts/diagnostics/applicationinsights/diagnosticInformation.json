@@ -1,0 +1,65 @@
+{
+  "properties": {
+    "loggerId": "/subscriptions/da2e245c-1da4-409b-9b54-81016ca9ae8f/resourceGroups/dev-apim-resource-group/providers/Microsoft.ApiManagement/service/dev-apim-apim/loggers/dev-apim-apim-logger",
+    "alwaysLog": "allErrors",
+    "backend": {
+      "request": {
+        "body": {
+          "bytes": 32
+        },
+        "headers": [
+          "accept",
+          "content-type",
+          "origin",
+          "x-request-id",
+          "x-correlation-id"
+        ]
+      },
+      "response": {
+        "body": {
+          "bytes": 32
+        },
+        "headers": [
+          "accept",
+          "content-type",
+          "origin",
+          "x-request-id",
+          "x-correlation-id"
+        ]
+      }
+    },
+    "frontend": {
+      "request": {
+        "body": {
+          "bytes": 32
+        },
+        "headers": [
+          "accept",
+          "content-type",
+          "origin",
+          "x-request-id",
+          "x-correlation-id"
+        ]
+      },
+      "response": {
+        "body": {
+          "bytes": 32
+        },
+        "headers": [
+          "accept",
+          "content-type",
+          "origin",
+          "x-request-id",
+          "x-correlation-id"
+        ]
+      }
+    },
+    "httpCorrelationProtocol": "W3C",
+    "logClientIp": true,
+    "sampling": {
+      "percentage": 5,
+      "samplingType": "fixed"
+    },
+    "verbosity": "verbose"
+  }
+}
