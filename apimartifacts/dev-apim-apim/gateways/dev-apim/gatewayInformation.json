@@ -1,0 +1,11 @@
+{
+  "properties": {
+    "description": "API Management gateway",
+    "locationData": {
+      "city": "",
+      "countryOrRegion": "",
+      "district": "",
+      "name": "aws-dev-workloads-eks-cluster"
+    }
+  }
+}
