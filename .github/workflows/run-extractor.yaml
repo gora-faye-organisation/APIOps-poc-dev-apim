@@ -7,12 +7,12 @@ on:
         description: "Nom de l'instance APIM"
         required: true
       resourceGroup:
-        description: "Nom du groupe de ressources"
+        description: "Nom du resource group Azure"
         required: true
       outputFolder:
         description: "Répertoire de sortie"
         required: false
-        default: "extracted-apis"
+        default: "extracted"
 
 jobs:
   extract:
@@ -22,23 +22,20 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: '6.0.x'
-
-    - name: Install APIOps Extractor
-      run: |
-        dotnet tool install --global Microsoft.Azure.ApiManagement.ArmTemplates.Extractor.Tool
-
     - name: Azure Login
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
+    - name: Download APIOps Extractor Binary
+      run: |
+        curl -L -o extractor.zip https://aka.ms/apimextractor-linux
+        unzip extractor.zip -d extractor
+        chmod +x extractor/Extractor
+
     - name: Run Extractor
       run: |
-        extractor \
+        ./extractor/Extractor \
           --sourceApimName "${{ github.event.inputs.apimName }}" \
           --resourceGroup "${{ github.event.inputs.resourceGroup }}" \
           --fileFolder "${{ github.event.inputs.outputFolder }}"
